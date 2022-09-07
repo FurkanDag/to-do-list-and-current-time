@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="to-do-list-basic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+
+<body>
+    <h1 class="h1">Görev Listem</h1>
+    <div class="container">
+        <div id="newtask">
+            <input type="text" placeholder="Buraya yazabilirsiniz.">
+            <button id="push">Ekle</button>
+        </div>
+    </div>
+    <div id="tasks"></div>
+    <h2 class="h2">Şu an saat:</h2>
+    <div id="zaman"></div>
+
+    <!--javascript kısmı-->
+    <script type="text/javascript">
+        document.querySelector('#push').onclick = function () {
+            if (document.querySelector('#newtask input').value.length == 0) {
+                alert("Lütfen kutucuğu doldurunuz.")
+            } else {
+                document.querySelector('#tasks').innerHTML += `
+                <div class="task">
+                    <span id="taskname">
+                        ${document.querySelector('#newtask input').value}
+                    </span>
+                    <button class="delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+                `;
+                //silme butonu
+                var current_tasks = document.querySelectorAll(".delete");
+                for (var i = 0; i < current_tasks.length; i++) {
+                    current_tasks[i].onclick = function () {
+                        this.parentNode.remove();
+                    }
+                }
+            }
+        }
+
+
+
+
+
+        function tarihSaat() {
+            var date = new Date().toLocaleString('tr-TR');
+            document.getElementById("zaman").innerHTML = date;
+        }
+        // her 1 saniyede tarihSaat fonksiyonunu yeniden çalıştır
+        setInterval(tarihSaat, 1000);
+    </script>
+
+</body>
+
+</html>
